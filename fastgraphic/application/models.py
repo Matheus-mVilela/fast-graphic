@@ -20,14 +20,14 @@ class Product(core.models.BaseModel):
     description = models.CharField(max_length=50)
 
 
-class SaleItem(core.models.BaseModel):
+class SaleProduct(core.models.BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     qantity = models.FloatField()
     unit_price = models.FloatField()
 
 
 class Sale(core.models.BaseModel):
-    item = models.ForeignKey(SaleItem, on_delete=models.CASCADE)
+    item = models.ForeignKey(SaleProduct, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     discount = models.FloatField()
 
