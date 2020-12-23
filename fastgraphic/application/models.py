@@ -11,26 +11,42 @@ class Employee(User):
     )
 
     phone = models.CharField(max_length=20)
-    role = models.CharField(choices=ROLE_CHOICES)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
 
 
 class Product(core.models.BaseModel):
-    # name str
-    # price float
-    # description str
-    pass
+    name = models.CharField(max_length=35)
+    price = models.FloatField()
+    description = models.CharField(max_length=50)
 
 
 class SaleItem(core.models.BaseModel):
-    # product = FK to Product
-    # unit_price = float
-    pass
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    qantity = models.FloatField()
+    unit_price = models.FloatField()
 
 
 class Sale(core.models.BaseModel):
-    # item = FK to SaleItem
-    # employee = FK to Employee
-    # total_cost vai ser uma property da soma dos precos dos items
-    # discount
-    pass
+    item = models.ForeignKey(SaleItem, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    discount = models.FloatField()
+
+    @property
+    def total_cost(self):
+
+        tot = self.saleitem_set.all().aggregate(
+            tot_ped=Sum(
+                (F('quantity') * F('price')) - F('discount'),
+                output_field=FloatField(),
+            )
+        )['tot_ped']
+
+        if tot:
+            return tot - self.discount
+        else:
+            return 0
+
+    def __str__(self):
+
+        return f'{self.pk}'
 
