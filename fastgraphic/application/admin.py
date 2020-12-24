@@ -1,51 +1,26 @@
 from django.contrib import admin
-from .models import Employee, Product, SaleProduct, Sale
+from . import models
 
 
+@admin.register(models.Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    fieldsets = (
-        (
-            'Dados Pessoais',
-            {'fields': ('username', 'password', 'first_name', 'last_name',)},
-        ),
-        ('Dados Complementares', {'fields': ('email', 'phone', 'role')}),
-        (
-            'Permissoes do usuario',
-            {
-                'fields': (
-                    'user_permissions',
-                    'is_staff',
-                    'is_active',
-                    'is_superuser',
-                )
-            },
-        ),
+    list_display = (
+        'user',
+        'phone',
+        'role',
     )
-    filter_horizontal = [
-        'user_permissions',
-    ]
-    list_display = ('username', 'email', 'phone', 'role')
 
 
+@admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
     pass
 
 
 class SaleProductInline(admin.StackedInline):
-    pass
+    model = models.SaleProduct
+    extra = 3
 
 
-class SaleProductAdmin(admin.ModelAdmin):
-    pass
-
-
+@admin.register(models.Sale)
 class SaleAdmin(admin.ModelAdmin):
-    def __str__(self):
-        pass
-
-
-admin.site.register(Employee, EmployeeAdmin)
-admin.site.register(Product, ProductAdmin)
-admin.site.register(SaleProduct, SaleProductAdmin)
-admin.site.register(Sale, SaleAdmin)
-
+    inlines = [SaleProductInline]
