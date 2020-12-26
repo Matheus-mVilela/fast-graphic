@@ -18,9 +18,14 @@ class ProductAdmin(admin.ModelAdmin):
 
 class SaleProductInline(admin.StackedInline):
     model = models.SaleProduct
-    extra = 3
+    extra = 1
 
 
 @admin.register(models.Sale)
 class SaleAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'employee',
+        'total_cost',
+    )
     inlines = [SaleProductInline]

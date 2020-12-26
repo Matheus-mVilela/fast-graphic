@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core import exceptions
+from django.db.models import Sum, F, FloatField, Aggregate
 
 import core.models
 
@@ -32,9 +34,18 @@ class SaleProduct(core.models.BaseModel):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.FloatField()
     unit_price = models.FloatField(null=True, blank=True)
-    # TODO:
-    # - criar validação de (quantidade e unit_price) < 0 == raise
-    # - se não existir unit_price, deve preencher o campo com o valor de price de Product
+
+    def save(self, *args, **kwargs):
+
+        if self.quantity <= 0:
+            raise exceptions.ValidationError(
+                'Quantity must be grather than zero'
+            )
+
+        if not self.unit_price:
+            self.unit_price = self.product.price
+
+        return super(SaleProduct, self).save(*args, **kwargs)
 
 
 class Sale(core.models.BaseModel):
@@ -49,6 +60,9 @@ class Sale(core.models.BaseModel):
                 (F('quantity') * F('unit_price')), output_field=FloatField(),
             )
         )['total_cost']
+
+        if not self.discount:
+            self.discount = 0
 
         if not total_cost:
             return 0
