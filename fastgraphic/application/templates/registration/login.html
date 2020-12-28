@@ -1,0 +1,25 @@
+{% extends 'template-base.html' %}
+{% load crispy_forms_tags %}
+
+
+
+{% block title %} Pagina de login {% endblock %}
+
+{% block main %}
+
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy}}
+    <button type="submit" class="btn btn-info">Login</button>
+</form>
+
+{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted"></span>
+    </div>
+</footer>
+{% endblock %}
