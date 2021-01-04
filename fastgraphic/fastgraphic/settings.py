@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'application',
-    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -72,8 +71,6 @@ TEMPLATES = [
         },
     },
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'fastgraphic.wsgi.application'
 
