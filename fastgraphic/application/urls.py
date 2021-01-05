@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import logout_view
+from . import views
 
 
 urlpatterns = [
-    path('logout/', logout_view, name='logout'),
+    path('', views.HelloWorldView.as_view(), name='hello-world'),
 ]

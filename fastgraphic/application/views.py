@@ -1,10 +1,11 @@
-from django.shortcuts import render
-from django.contrib.auth import logout
+from django import shortcuts, views
 
 
-def logout_view(request):
-    logout(request)
-    return redirect('login.html')
+class HelloWorldView(views.View):
+    def get(self, request):
+        return shortcuts.render(
+            request, 'my-folder/hello.html', context={'user': request.user}
+        )
 
 
 # Create your views here.
