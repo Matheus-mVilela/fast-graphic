@@ -1,4 +1,4 @@
-{% load static %}
+{% load static%}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,9 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Icon -->
-    <link rel="shortcut icon" type="image/ico" href="{% static 'img/icon-uenp.png' %}">
 
     <!-- Link CSS -->
     {% block link_header_css %}
@@ -19,8 +16,6 @@
     <link rel="stylesheet" href="{% static 'base_css/footer.css' %}">
     {% endblock %}
 
-    {% block link_css %}{% endblock %}
-
     <!-- Google Font -->
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&display=swap"
@@ -29,9 +24,9 @@
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -43,65 +38,20 @@
     <title>{% block title %}{% endblock %}</title>
 
     {% block head_style %}
-    {% endblock %}
-    <style>
-        * {
-            font-family: 'Roboto', sans-serif;
-            color: #ffffff;
-        }
 
-        div.content {
-            min-height: 80vh;
-        }
-    </style>
+    {% endblock %}
 </head>
 
 <body>
     <!-- BLOCK HEADER -->
     {% block header %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 30px;">
-        <a class="navbar-brand" href="/">Clube de Assinatura</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-            <div>
-                <button class="btn btn-info">
-                    <a href="/cart" style="color: #ffffff;">
-                        <i class="fas fa-shopping-cart">
-                            {% if size_cart %} {{size_cart}} {% else %} 0 {% endif %}
-                        </i>
-                    </a>
-                </button>
-                {% if not user.is_authenticated %}
-                <button class="btn btn-dark"><a href="/login" style="color: #ffffff;">Login</a></button>
-                {% else %}
-                <span style="color: black">Hello {{ user.username }}!</span>
-                <button class="btn btn-danger"><a href="/logout" style="color: #ffffff;">Logout</a></button>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
     {% endblock %}
 
     <!-- BLOCK CONTENT -->
-    {% block content %}{% endblock %}
+    {% block content %}
+
+    {% endblock %}
 
     <!-- BLOCK FOOTER -->
     {% block footer %}
@@ -109,15 +59,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center">
-                    <div>
+                    <div class="icon-footer">
                         <a href="#" target="_blank">
                             <i class="fab fa-facebook"></i></a>
                         <a href="#" target="_blank">
                             <i class="fab fa-instagram"></i></a>
                     </div>
-                    <div style="margin-top: 10px;">
-                        <p>2020&COPY; Clube de Assinatura</p>
-                        <div class="border-bottom"></div>
+                    <div>
+                        <p>2021&COPY; Gráfica Rápida</p>
                     </div>
                 </div>
             </div>
