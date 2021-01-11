@@ -3,7 +3,7 @@ from django.contrib.auth import decorators
 
 from . import views
 
-
+app_name = 'application'
 urlpatterns = [
     path(
         '',
@@ -14,5 +14,10 @@ urlpatterns = [
         'sales/<str:id_sale>/',
         decorators.login_required(views.SaleDetailView.as_view()),
         name='sale-detail',
+    ),
+    path(
+        'sales/',
+        decorators.login_required(views.SaleCreateView.as_view()),
+        name='sale-create',
     ),
 ]
