@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_style %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block content_style %}
+<style>
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div>
+        <a href="/" class="btn btn-info">Voltar</a>
+        <h1>
+            {{ sale.pk }} - {{ sale.employee.user.username }}
+        </h1>
+    </div>
+
+    <br><br>
+
+    <div class="list-group">
+        {% for product in sale.saleproduct_set.all %}
+        <span class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ product.name }}</h5>
+                <small class="text-muted">{{ product.created_at }}</small>
+            </div>
+            <p class="mb-1">Total unitario: {{ product.total_cost }}</p>
+            <small class="text-muted">Quantidade: {{ product.quantity }} - Preco: {{ product.unit_price }}</small>
+        </span>
+        {% endfor %}
+    </div>
+
+    <div>
+        <br>
+        <h1>Total da Venda: {{sale.total_cost}}</h1>
+    </div>
+
+</div>
+{%endblock%}

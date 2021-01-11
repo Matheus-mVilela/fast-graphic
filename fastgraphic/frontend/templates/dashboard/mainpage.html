@@ -12,31 +12,24 @@
         margin-top: 50px;
     }
 
-    .list-sales {
+    .container-sales {
         margin-top: 50px;
+    }
+
+    .list-sales {
+        height: 50vh;
+    }
+
+    .sale-item:hover {
+        background-color: #b3b3b3;
     }
 </style>
 
 {% endblock %}
 
 
-{% block header %}
-{% if user.is_authenticated %}
-<div class="container">
-    <div class="row">
-        <div class="">
-            informações adicionais
-        </div>
-        <div class="">
-            <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
-        </div>
-    </div>
-</div>
-{% endif %}
-{% endblock %}
-
 {% block content %}
-<div class="container sales-part ">
+<div class="container sales-part">
     <div class="d-flex justify-content-center">
         <div class="col-4">
             <a class="btn btn-info" href="">Venda Rápida</a>
@@ -50,11 +43,16 @@
     </div>
 </div>
 
-<div class="container list-sales">
-    <div class="">
-        <div class="col-12">
-            <li><a class="btn btn-primary" href="">Detalhar</a></li>
-        </div>
-    </div>
+<div class="container container-sales">
+    <ul class="list-group overflow-auto list-sales">
+        {% for sale in sales %}
+        <li class="list-group-item d-flex justify-content-between align-items-center sale-item">
+            <a href="/sales/{{sale.pk}}">
+                {{sale.pk}} - {{ sale.employee.user.username }}
+            </a>
+            <a href="/sales/{{sale.pk}}" class="btn btn-light">Detalhar</a>
+        </li>
+        {% endfor %}
+    </ul>
 </div>
 {%endblock%}

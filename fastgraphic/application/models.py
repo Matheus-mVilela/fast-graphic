@@ -35,6 +35,10 @@ class SaleProduct(core.models.BaseModel):
     quantity = models.FloatField()
     unit_price = models.FloatField(null=True, blank=True)
 
+    @property
+    def total_cost(self):
+        return round(self.unit_price * self.quantity, 2)
+
     def save(self, *args, **kwargs):
 
         if self.quantity <= 0:
@@ -67,7 +71,7 @@ class Sale(core.models.BaseModel):
         if not total_cost:
             return 0
 
-        return total_cost - self.discount
+        return round(total_cost - self.discount, 2)
 
     def __str__(self):
         return f'{self.pk}'
