@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_style %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block content_style %}
+<style>
+    .sales-part {
+        margin-top: 50px;
+    }
+
+    .container-sales {
+        margin-top: 50px;
+    }
+
+    .list-sales {
+        height: 50vh;
+    }
+
+    .sale-item:hover {
+        background-color: #b3b3b3;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container sales-part">
+    <div class="d-flex justify-content-center">
+        <div class="col-4">
+            <a class="btn btn-info" href="">Venda Rápida</a>
+        </div>
+        <div class="col-4">
+            <a class="btn btn-info" href="{% url 'application:sale-create'  %}">Venda</a>
+        </div>
+        <div class="col-4">
+            <a class="btn btn-info" href="">Cancelar Venda</a>
+        </div>
+    </div>
+</div>
+
+<div class="container container-sales">
+    <ul class="list-group overflow-auto list-sales">
+        {% for sale in sales %}
+        <li class="list-group-item d-flex justify-content-between align-items-center sale-item">
+            <a href="/sales/{{sale.pk}}">
+                {{sale.pk}} - {{ sale.employee.user.username }}
+            </a>
+            <a href="/sales/{{sale.pk}}" class="btn btn-light">Detalhar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{%endblock%}
