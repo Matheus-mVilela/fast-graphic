@@ -21,6 +21,7 @@ class Employee(core.models.BaseModel):
 
 
 class Product(core.models.BaseModel):
+    code = models.CharField(max_length=30, unique=True)
     name = models.CharField(max_length=35)
     price = models.FloatField()
     description = models.CharField(max_length=50, null=True, blank=True)
