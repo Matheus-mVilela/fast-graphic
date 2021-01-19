@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core import exceptions
 from django.db.models import Sum, F, FloatField, Aggregate
+from . import choices
 
 import core.models
 
@@ -33,7 +34,7 @@ class Product(core.models.BaseModel):
 class SaleProduct(core.models.BaseModel):
     sale = models.ForeignKey('Sale', on_delete=models.CASCADE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    quantity = models.FloatField()
+    quantity = models.PositiveIntegerField()
     unit_price = models.FloatField(null=True, blank=True)
 
     @property
@@ -56,6 +57,13 @@ class SaleProduct(core.models.BaseModel):
 class Sale(core.models.BaseModel):
     employee = models.ForeignKey('Employee', on_delete=models.CASCADE)
     discount = models.FloatField(null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=choices.STATUS_CHOICES,
+        null=False,
+        blank=False,
+        default=choices.STATUS_OPEN,
+    )
 
     @property
     def total_cost(self):
