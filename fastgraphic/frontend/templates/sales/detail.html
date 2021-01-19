@@ -17,6 +17,7 @@
 <div class="container">
     <div>
         <a href="/" class="btn btn-info">Voltar</a>
+        <br><br>
         <h1>
             {{ sale.pk }} - {{ sale.employee.user.username }}
         </h1>
@@ -31,8 +32,9 @@
                 <h5 class="mb-1">{{ product.name }}</h5>
                 <small class="text-muted">{{ product.created_at }}</small>
             </div>
-            <p class="mb-1">Total unitario: {{ product.total_cost }}</p>
-            <small class="text-muted">Quantidade: {{ product.quantity }} - Preco: {{ product.unit_price }}</small>
+            <p class="mb-1">Total R$ : {{ product.total_cost }}</p>
+            <small class="text-muted">Quantidade: {{ product.quantity }} -
+                Preço unitário : {{ product.unit_price}}</small>
         </span>
         {% endfor %}
     </div>
