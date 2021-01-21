@@ -56,6 +56,7 @@ class SaleProduct(core.models.BaseModel):
         return super(SaleProduct, self).save(*args, **kwargs)
 
 
+# TODO Quando não tem nenhuma venda está dando um erro.'NoneType'
 class Sale(core.models.BaseModel):
     employee = models.ForeignKey('Employee', on_delete=models.CASCADE,)
     discount = models.FloatField(null=True, blank=True)
