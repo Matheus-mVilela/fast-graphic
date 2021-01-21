@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core import exceptions
 from django.db.models import Sum, F, FloatField, Aggregate
 from . import choices
+from datetime import datetime
 
 import core.models
 
@@ -16,6 +17,7 @@ class Employee(core.models.BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=20)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    is_machine = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username}'
@@ -55,7 +57,7 @@ class SaleProduct(core.models.BaseModel):
 
 
 class Sale(core.models.BaseModel):
-    employee = models.ForeignKey('Employee', on_delete=models.CASCADE)
+    employee = models.ForeignKey('Employee', on_delete=models.CASCADE,)
     discount = models.FloatField(null=True, blank=True)
     status = models.CharField(
         max_length=20,
@@ -84,3 +86,4 @@ class Sale(core.models.BaseModel):
 
     def __str__(self):
         return f'{self.pk}'
+
