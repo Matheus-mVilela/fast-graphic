@@ -50,14 +50,37 @@ def delete_sale_product_by_id(_id):
 
 
 def filter_products_by_name_or_code(value):
-    # TODO: add validation to filter by name and code
-    return models.Product.objects.filter(name__startswith=value)
+    """Filter Products By Name Or Code
+
+    Note: This function tries filter by name__startswith if can't find
+      anything, tries filter by code__startswith. If can't find anything
+      again tries filter by name__contains and if can't find anything,
+      tries filter by code__contains.
+
+    Args:
+        value (str)
+
+    Returns:
+        typing.List[models.Product]
+    """
+    products = models.Product.objects.filter(name__startswith=value)
+
+    if not products:
+        products = models.Product.objects.filter(code__startswith=value)
+
+    if not products:
+        products = models.Product.objects.filter(name__contains=value)
+
+    if not products:
+        products = models.Product.objects.filter(code__contains=value)
+
+    return products
 
 
 def get_or_create_open_sale_by_employee(employee):
     _sale = models.Sale.objects.filter(employee=employee).last()
 
-    if _sale.status == 'finished':
+    if not _sale or _sale.status == 'finished':
         _sale = models.Sale.objects.create(employee=employee)
 
     return _sale
@@ -70,7 +93,8 @@ def add_products_to_sale(sale, data):
 
 def get_last_sale_by_employee(employee):
     _sale = models.Sale.objects.last()
-    if _sale.status == 'finished':
+
+    if not _sale or _sale.status == 'finished':
         return None
 
     return _sale
