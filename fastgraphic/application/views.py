@@ -160,3 +160,9 @@ class SaleFinishView(views.View):
             request, f'A venda foi finalizada com sucesso!!!',
         )
         return shortcuts.redirect('application:dashboard')
+
+
+class SaleFastView(views.View):
+    def get(self, request):
+        return shortcuts.render(request, 'sales/create-fast-sale.html')
+
