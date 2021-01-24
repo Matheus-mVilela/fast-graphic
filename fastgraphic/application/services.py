@@ -23,6 +23,10 @@ def get_products():
     return models.Product.objects.all().order_by('-id')
 
 
+def get_products_by_star():
+    return models.Product.objects.filter(star_product=True).order_by('-id')
+
+
 def get_employees():
     return models.Employee.objects.filter(is_machine=False).order_by('-id')
 

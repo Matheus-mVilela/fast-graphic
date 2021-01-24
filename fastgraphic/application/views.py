@@ -132,7 +132,9 @@ class SaleFinishView(views.View):
                 request,
                 'Não foi possivel finalizar a venda. Verifique se o funcionario foi selecionado!',
             )
-            return shortcuts.redirect('application:sale-create')
+            return shortcuts.redirect(
+                'appform = forms.FilterProductForm()lication:sale-create'
+            )
 
         employee = services.get_employee_by_id(form.data['employee_id'])
         if not employee:
@@ -164,5 +166,61 @@ class SaleFinishView(views.View):
 
 class SaleFastView(views.View):
     def get(self, request):
-        return shortcuts.render(request, 'sales/create-fast-sale.html')
+        form = forms.FilterProductForm()
+        products = services.get_products_by_star()
+        employees = services.get_employees()
+
+        try:
+            employee = request.user.employee
+        except User.employee.RelatedObjectDoesNotExist:
+            messages.error(
+                request, 'O usuario não tem permição para executar essa ação!',
+            )
+            return shortcuts.redirect('application:dashboard')
+
+        sale = services.get_last_sale_by_employee(employee)
+
+        return shortcuts.render(
+            request,
+            'sales/create-fast-sale.html',
+            context={
+                'products': products,
+                'form': form,
+                'employees': employees,
+                'sale': sale,
+                'form_finish_sale': forms.SaleFinishForm(),
+            },
+        )
+
+    def post(self, request):
+        form = forms.FilterProductForm(request.POST)
+        if not form.is_valid():
+            return shortcuts.redirect('application:sale-fast')
+
+        products = services.filter_products_by_name_or_code(form.data['value'])
+        form = forms.FilterProductForm()
+
+        try:
+            employee = request.user.employee
+        except User.employee.RelatedObjectDoesNotExist:
+            messages.error(
+                request,
+                'O usuario logado nao pode adicionar produtos pois nao e funcionario.',
+            )
+            return shortcuts.redirect('application:sale-fast')
+
+        sale = services.get_last_sale_by_employee(employee)
+        employees = services.get_employees()
+
+        return shortcuts.render(
+            request,
+            'sales/create-fast-sale.html',
+            context={
+                'products': products,
+                'form': form,
+                'sale': sale,
+                'employees': employees,
+                'form_finish_sale': forms.SaleFinishForm(),
+            },
+        )
 
