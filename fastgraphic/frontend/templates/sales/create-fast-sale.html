@@ -58,9 +58,9 @@
 </div>
 <div class="row">
     <div class="col-12 list-products-bgc ">
-        <div class="container">
+        <div class="container overflow-auto" style="height: 60vh;">
             <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
-            <ul class="list-group overflow-auto" style="height: 60vh;">
+            <ul class="list-group">
                 {% for product in products %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <label for="">{{product.name}}<i class="fas fa-star star-icon"></i></label>
