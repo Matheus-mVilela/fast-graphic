@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_style %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block content_style %}
+<style>
+    .search-bar {
+        margin-top: 20px;
+        margin-bottom: 22px;
+    }
+
+    .margin-btn-sale {
+        margin-left: 10px;
+        border-radius: 0px;
+    }
+
+    .custom-select-border {
+        border-radius: 0px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    <div class="col-8">
+        <div class="container search-bar">
+            <form action="{% url 'application:sale-create' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="text" name="value" class="form-control" placeholder="Pesquisar por nome"
+                        aria-label="Pesquisar por nome" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="container">
+            <ul class="list-group overflow-auto" style="height: 60vh;">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cópia
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" required name="quantity" class="form-control"
+                                placeholder="Quantidade">
+                            <input type="number" required name="unit_price" class="form-control" value=""
+                                placeholder="Preço">
+                            <div class="input-group-append">
+                                <select class="custom-select custom-select-border" name="employee_id"
+                                    id="inputGroupSelect01">
+                                    <option selected disabled>------</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
+                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cópia
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" required name="quantity" class="form-control"
+                                placeholder="Quantidade">
+                            <input type="number" required name="unit_price" class="form-control" value=""
+                                placeholder="Preço">
+                            <div class="input-group-append">
+                                <select class="custom-select custom-select-border" name="employee_id"
+                                    id="inputGroupSelect01">
+                                    <option selected disabled>------</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
+                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cópia
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" required name="quantity" class="form-control"
+                                placeholder="Quantidade">
+                            <input type="number" required name="unit_price" class="form-control" value=""
+                                placeholder="Preço">
+                            <div class="input-group-append">
+                                <select class="custom-select custom-select-border" name="employee_id"
+                                    id="inputGroupSelect01">
+                                    <option selected disabled>------</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
+                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cópia
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" required name="quantity" class="form-control"
+                                placeholder="Quantidade">
+                            <input type="number" required name="unit_price" class="form-control" value=""
+                                placeholder="Preço">
+                            <div class="input-group-append">
+                                <select class="custom-select custom-select-border" name="employee_id"
+                                    id="inputGroupSelect01">
+                                    <option selected disabled>------</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
+                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cópia
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" required name="quantity" class="form-control"
+                                placeholder="Quantidade">
+                            <input type="number" required name="unit_price" class="form-control" value=""
+                                placeholder="Preço">
+                            <div class="input-group-append">
+                                <select class="custom-select custom-select-border" name="employee_id"
+                                    id="inputGroupSelect01">
+                                    <option selected disabled>------</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
+                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cópia
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" required name="quantity" class="form-control"
+                                placeholder="Quantidade">
+                            <input type="number" required name="unit_price" class="form-control" value=""
+                                placeholder="Preço">
+                            <div class="input-group-append">
+                                <select class="custom-select custom-select-border" name="employee_id"
+                                    id="inputGroupSelect01">
+                                    <option selected disabled>------</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
+                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cópia
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" required name="quantity" class="form-control"
+                                placeholder="Quantidade">
+                            <input type="number" required name="unit_price" class="form-control" value=""
+                                placeholder="Preço">
+                            <div class="input-group-append">
+                                <select class="custom-select custom-select-border" name="employee_id"
+                                    id="inputGroupSelect01">
+                                    <option selected disabled>------</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
+                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}

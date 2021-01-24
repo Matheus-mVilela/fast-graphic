@@ -100,9 +100,9 @@
 
     <div class="col-4 sales-cart">
         <div class="container">
-            <div class="list-group overflow-auto" style="height: 50vh;">
+            <ul class="list-group overflow-auto" style="height: 50vh;">
                 {% for item in sale.saleproduct_set.all %}
-                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ item.product.name }}</h5>
                     </div>
@@ -111,28 +111,29 @@
                     <small class="text-muted">Valor total: {{ item.total_cost }} </small>
                     <a href="{% url 'application:sale-delete-product' item.pk %}"><i
                             class="fas fa-trash-alt delete-icon"></i></a>
-                </div>
-                {% endfor %}
-            </div>
-            <form action="{% url 'application:sale-finish' %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="input-group mb-3 employee-margin-top">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Vendedor</label>
-                    </div>
-                    <select class="custom-select" name="employee_id" id="inputGroupSelect01">
-                        <option selected disabled>------</option>
-                        {% for employee in employees %}
-                        <option value="{{employee.user.pk}}">{{employee.user.username}}</option>
-                        {% endfor%}
-                    </select>
-                </div>
-                <h5>Total:{{sale.total_cost}}</h5>
-                <input type="hidden" name="sale_id" value="{{ sale.pk }}">
-                <button class="btn btn-success" type="submit">Finalizar Venda</button>
-            </form>
+                </li>
+            </ul>
+            {% endfor %}
         </div>
+        <form action="{% url 'application:sale-finish' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group mb-3 employee-margin-top">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Vendedor</label>
+                </div>
+                <select class="custom-select" name="employee_id" id="inputGroupSelect01">
+                    <option selected disabled>------</option>
+                    {% for employee in employees %}
+                    <option value="{{employee.user.pk}}">{{employee.user.username}}</option>
+                    {% endfor%}
+                </select>
+            </div>
+            <h5>Total:{{sale.total_cost}}</h5>
+            <input type="hidden" name="sale_id" value="{{ sale.pk }}">
+            <button class="btn btn-success" type="submit">Finalizar Venda</button>
+        </form>
     </div>
+</div>
 </div>
 {%endblock%}
 

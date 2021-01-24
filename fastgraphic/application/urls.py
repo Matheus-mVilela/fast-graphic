@@ -35,5 +35,10 @@ urlpatterns = [
         decorators.login_required(views.SaleFinishView.as_view()),
         name='sale-finish',
     ),
+    path(
+        'sales/fast',
+        decorators.login_required(views.SaleFastView.as_view()),
+        name='sale-fast',
+    ),
 ]
 
