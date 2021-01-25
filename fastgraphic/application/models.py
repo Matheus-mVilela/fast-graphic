@@ -25,10 +25,10 @@ class Employee(core.models.BaseModel):
 
 class Product(core.models.BaseModel):
     code = models.CharField(max_length=30, unique=True)
-    star_product = models.BooleanField(default=False)
     name = models.CharField(max_length=35)
     price = models.FloatField()
     description = models.CharField(max_length=50, null=True, blank=True)
+    is_high_demand = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.name} - {self.price}'

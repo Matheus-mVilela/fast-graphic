@@ -40,5 +40,10 @@ urlpatterns = [
         decorators.login_required(views.SaleFastView.as_view()),
         name='sale-fast',
     ),
+    path(
+        'sales/fast/create',
+        decorators.login_required(views.SaleFastCreateView.as_view()),
+        name='sale-fast-create',
+    ),
 ]
 

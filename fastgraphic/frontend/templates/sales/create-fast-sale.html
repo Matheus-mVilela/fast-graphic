@@ -30,12 +30,6 @@
         margin-top: 10px;
         margin-bottom: 15px;
     }
-
-    .star-icon {
-        color: yellow;
-        font-size: 15px;
-        margin-left: 5px;
-    }
 </style>
 {% endblock %}
 
@@ -63,10 +57,12 @@
             <ul class="list-group">
                 {% for product in products %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <label for="">{{product.name}}<i class="fas fa-star star-icon"></i></label>
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    {{ product.name }}
+                    <small class="text-muted">{{ product.code }}</small>
+                    <form action="{% url 'application:sale-fast-create' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="input-group mb-3">
+                            <input type="hidden" name="product_id" value="{{ product.pk }}">
                             <input type="number" min="0" required name="quantity" class="form-control"
                                 placeholder="Quantidade">
                             <input type="number" required name="unit_price" class="form-control"
@@ -75,7 +71,7 @@
                                 <select class="custom-select" name="employee_id" id="inputGroupSelect01">
                                     <option selected disabled>------</option>
                                     {% for employee in employees %}
-                                    <option value="{{employee.user.pk}}">{{employee.user.username}}</option>
+                                    <option value="{{employee.pk}}">{{employee.user.username}}</option>
                                     {% endfor%}
                                 </select>
                                 <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>

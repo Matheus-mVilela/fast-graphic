@@ -2,6 +2,7 @@ from . import models, choices
 
 
 def get_sales_by_current_day():
+    # TODO arruma isso.
     return models.Sale.objects.all()
 
 
@@ -23,8 +24,8 @@ def get_products():
     return models.Product.objects.all().order_by('-id')
 
 
-def get_products_by_star():
-    return models.Product.objects.filter(star_product=True).order_by('-id')
+def get_products_with_high_demand():
+    return models.Product.objects.filter(is_high_demand=True).order_by('-id')
 
 
 def get_employees():
@@ -106,6 +107,17 @@ def get_last_sale_by_employee(employee):
 
 def finish_sale(sale, employee):
     sale.employee = employee
+    sale.status = choices.STATUS_FINISHED
+    sale.save()
+    return sale
+
+
+def create_fast_sale(product, employee, quantity, unit_price):
+
+    sale = models.Sale.objects.create(employee=employee)
+    sale_product = models.SaleProduct.objects.create(
+        sale=sale, product=product, quantity=quantity, unit_price=unit_price
+    )
     sale.status = choices.STATUS_FINISHED
     sale.save()
     return sale
