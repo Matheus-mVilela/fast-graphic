@@ -28,6 +28,7 @@ class Product(core.models.BaseModel):
     name = models.CharField(max_length=35)
     price = models.FloatField()
     description = models.CharField(max_length=50, null=True, blank=True)
+    is_high_demand = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.name} - {self.price}'

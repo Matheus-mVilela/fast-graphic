@@ -17,6 +17,11 @@
         background-color: rgb(221, 218, 218);
     }
 
+    .margin-back-btn {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
     .list-sales-margin-top {
         margin-top: 15px;
 
@@ -74,10 +79,12 @@
 <div class="row">
     <div class="col-8 list-products-bgc">
         <div class="container">
+            <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
             <ul class="list-group overflow-auto list-sales-margin-top">
                 {% for product in products %}
                 <li class="list-group-item d-flex justify-content-between align-items-center sale-item">
                     {{ product.name }}
+                    <small class="text-muted">{{ product.code }}</small>
                     <form action="{% url 'application:sale-add-product' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="input-group mb-3">
@@ -99,8 +106,8 @@
     </div>
 
     <div class="col-4 sales-cart">
-        <div class="container">
-            <ul class="list-group overflow-auto" style="height: 50vh;">
+        <div class="container overflow-auto" style="height: 50vh">
+            <ul class="list-group">
                 {% for item in sale.saleproduct_set.all %}
                 <li class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
@@ -124,7 +131,7 @@
                 <select class="custom-select" name="employee_id" id="inputGroupSelect01">
                     <option selected disabled>------</option>
                     {% for employee in employees %}
-                    <option value="{{employee.user.pk}}">{{employee.user.username}}</option>
+                    <option value="{{employee.pk}}">{{employee.user.username}}</option>
                     {% endfor%}
                 </select>
             </div>

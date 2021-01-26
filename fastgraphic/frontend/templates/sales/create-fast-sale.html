@@ -13,6 +13,10 @@
         margin-bottom: 22px;
     }
 
+    .list-products-bgc {
+        background-color: rgb(221, 218, 218);
+    }
+
     .margin-btn-sale {
         margin-left: 10px;
         border-radius: 0px;
@@ -21,6 +25,11 @@
     .custom-select-border {
         border-radius: 0px;
     }
+
+    .margin-back-btn {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
 </style>
 {% endblock %}
 
@@ -28,7 +37,7 @@
 <div class="row justify-content-center align-items-center">
     <div class="col-8">
         <div class="container search-bar">
-            <form action="{% url 'application:sale-create' %}" method="POST" enctype="multipart/form-data">
+            <form action="{% url 'application:sale-fast' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="input-group mb-3">
                     <input type="text" name="value" class="form-control" placeholder="Pesquisar por nome"
@@ -42,149 +51,35 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
-        <div class="container">
-            <ul class="list-group overflow-auto" style="height: 60vh;">
+    <div class="col-12 list-products-bgc ">
+        <div class="container overflow-auto" style="height: 60vh;">
+            <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
+            <ul class="list-group">
+                {% for product in products %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cópia
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    {{ product.name }}
+                    <small class="text-muted">{{ product.code }}</small>
+                    <form action="{% url 'application:sale-fast-create' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="input-group mb-3">
+                            <input type="hidden" name="product_id" value="{{ product.pk }}">
                             <input type="number" min="0" required name="quantity" class="form-control"
                                 placeholder="Quantidade">
-                            <input type="number" required name="unit_price" class="form-control" value=""
-                                placeholder="Preço">
+                            <input type="number" required name="unit_price" class="form-control"
+                                value="{{product.price}}" placeholder="Preço">
                             <div class="input-group-append">
-                                <select class="custom-select custom-select-border" name="employee_id"
-                                    id="inputGroupSelect01">
+                                <select class="custom-select" name="employee_id" id="inputGroupSelect01">
                                     <option selected disabled>------</option>
-                                    <option value="Vendedor">Vendedor</option>
+                                    {% for employee in employees %}
+                                    <option value="{{employee.pk}}">{{employee.user.username}}</option>
+                                    {% endfor%}
                                 </select>
                                 <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
                             </div>
                         </div>
                     </form>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cópia
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <input type="number" min="0" required name="quantity" class="form-control"
-                                placeholder="Quantidade">
-                            <input type="number" required name="unit_price" class="form-control" value=""
-                                placeholder="Preço">
-                            <div class="input-group-append">
-                                <select class="custom-select custom-select-border" name="employee_id"
-                                    id="inputGroupSelect01">
-                                    <option selected disabled>------</option>
-                                    <option value="Vendedor">Vendedor</option>
-                                </select>
-                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cópia
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <input type="number" min="0" required name="quantity" class="form-control"
-                                placeholder="Quantidade">
-                            <input type="number" required name="unit_price" class="form-control" value=""
-                                placeholder="Preço">
-                            <div class="input-group-append">
-                                <select class="custom-select custom-select-border" name="employee_id"
-                                    id="inputGroupSelect01">
-                                    <option selected disabled>------</option>
-                                    <option value="Vendedor">Vendedor</option>
-                                </select>
-                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cópia
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <input type="number" min="0" required name="quantity" class="form-control"
-                                placeholder="Quantidade">
-                            <input type="number" required name="unit_price" class="form-control" value=""
-                                placeholder="Preço">
-                            <div class="input-group-append">
-                                <select class="custom-select custom-select-border" name="employee_id"
-                                    id="inputGroupSelect01">
-                                    <option selected disabled>------</option>
-                                    <option value="Vendedor">Vendedor</option>
-                                </select>
-                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cópia
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <input type="number" min="0" required name="quantity" class="form-control"
-                                placeholder="Quantidade">
-                            <input type="number" required name="unit_price" class="form-control" value=""
-                                placeholder="Preço">
-                            <div class="input-group-append">
-                                <select class="custom-select custom-select-border" name="employee_id"
-                                    id="inputGroupSelect01">
-                                    <option selected disabled>------</option>
-                                    <option value="Vendedor">Vendedor</option>
-                                </select>
-                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cópia
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <input type="number" min="0" required name="quantity" class="form-control"
-                                placeholder="Quantidade">
-                            <input type="number" required name="unit_price" class="form-control" value=""
-                                placeholder="Preço">
-                            <div class="input-group-append">
-                                <select class="custom-select custom-select-border" name="employee_id"
-                                    id="inputGroupSelect01">
-                                    <option selected disabled>------</option>
-                                    <option value="Vendedor">Vendedor</option>
-                                </select>
-                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cópia
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <input type="number" min="0" required name="quantity" class="form-control"
-                                placeholder="Quantidade">
-                            <input type="number" required name="unit_price" class="form-control" value=""
-                                placeholder="Preço">
-                            <div class="input-group-append">
-                                <select class="custom-select custom-select-border" name="employee_id"
-                                    id="inputGroupSelect01">
-                                    <option selected disabled>------</option>
-                                    <option value="Vendedor">Vendedor</option>
-                                </select>
-                                <button class=" margin-btn-sale btn btn-success" type="submit">Vender</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
+                {%endfor%}
             </ul>
         </div>
     </div>

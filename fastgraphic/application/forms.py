@@ -14,3 +14,10 @@ class SaleAddProductForm(forms.Form):
 class SaleFinishForm(forms.Form):
     sale_id = forms.IntegerField()
     employee_id = forms.IntegerField()
+
+
+class SaleFastCreateForm(forms.Form):
+    product_id = forms.IntegerField()
+    quantity = forms.IntegerField()
+    unit_price = forms.FloatField()
+    employee_id = forms.IntegerField()

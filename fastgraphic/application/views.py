@@ -156,7 +156,7 @@ class SaleFinishView(views.View):
             )
             return shortcuts.redirect('application:sale-create')
 
-        messages.warning(
+        messages.success(
             request, f'A venda foi finalizada com sucesso!!!',
         )
         return shortcuts.redirect('application:dashboard')
@@ -164,5 +164,84 @@ class SaleFinishView(views.View):
 
 class SaleFastView(views.View):
     def get(self, request):
-        return shortcuts.render(request, 'sales/create-fast-sale.html')
+        form = forms.FilterProductForm()
+        products = services.get_products_with_high_demand()
+        employees = services.get_employees()
+
+        try:
+            employee = request.user.employee
+        except User.employee.RelatedObjectDoesNotExist:
+            messages.error(
+                request, 'O usuario não tem permição para executar essa ação!',
+            )
+            return shortcuts.redirect('application:dashboard')
+
+        return shortcuts.render(
+            request,
+            'sales/create-fast-sale.html',
+            context={
+                'products': products,
+                'form': form,
+                'employees': employees,
+                'form_sale': forms.SaleFastCreateForm(),
+            },
+        )
+
+    def post(self, request):
+        form = forms.FilterProductForm(request.POST)
+        if not form.is_valid():
+            return shortcuts.redirect('application:sale-fast')
+
+        products = services.filter_products_by_name_or_code(form.data['value'])
+        form = forms.FilterProductForm()
+
+        try:
+            employee = request.user.employee
+        except User.employee.RelatedObjectDoesNotExist:
+            messages.error(
+                request,
+                'O usuario logado nao pode adicionar produtos pois nao e funcionario.',
+            )
+            return shortcuts.redirect('application:sale-fast')
+
+        employees = services.get_employees()
+
+        return shortcuts.render(
+            request,
+            'sales/create-fast-sale.html',
+            context={
+                'products': products,
+                'form': form,
+                'employees': employees,
+                'form_sale': forms.SaleFastCreateForm(),
+            },
+        )
+
+
+class SaleFastCreateView(views.View):
+    def post(self, request):
+        form = forms.SaleFastCreateForm(request.POST)
+        if not form.is_valid():
+            messages.error(request, 'Não foi possivel efetuar a venda')
+            return shortcuts.redirect('application:sale-fast')
+
+        employee = services.get_employee_by_id(form.data['employee_id'])
+
+        if not employee:
+            messages.warning(
+                request,
+                f'O empregado com id {form.data["employee_id"]} não existe.',
+            )
+            return shortcuts.redirect('application:sale-fast')
+
+        product = services.get_product_by_id(form.data['product_id'])
+        quantity = form.cleaned_data['quantity']
+        unit_price = form.cleaned_data['unit_price']
+
+        services.create_fast_sale(product, employee, quantity, unit_price)
+
+        messages.success(
+            request, f'A venda foi finalizada com sucesso!!!',
+        )
+        return shortcuts.redirect('application:dashboard')
 
