@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_style %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block content_style %}
+<style>
+    .search-bar {
+        margin-top: 20px;
+        margin-bottom: 22px;
+    }
+
+    .col-select-employee {
+        width: 100%;
+        height: 30vh;
+        margin-top: 30px;
+        background-color: rgb(201, 201, 201);
+    }
+
+    .ctn-select-employee {
+        margin-top: 30px;
+    }
+
+    .btn-next {
+        margin-top: 5px;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    <div class="col-8">
+        <div class="container search-bar">
+            <form action="{% url 'application:sale-create' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="text" name="value" class="form-control" placeholder="Pesquisar por nome"
+                        aria-label="Pesquisar por nome" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center align-items-center">
+    <div class="col-4 col-select-employee">
+        <div class="container ctn-select-employee">
+            <form action="">
+                <h5>Selecione o vendedor para procegir com o cancelaento!</h5>
+                <select class="custom-select" name="employee_id" id="inputGroupSelect01">
+                    <option selected disabled>------</option>
+                    {% for employee in employees %}
+                    <option value="{{employee.pk}}">{{employee.user.username}}</option>
+                    {% endfor%}
+                </select>
+                <button class="btn btn-success btn-block btn-next">Continuar</button>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{%endblock%}
+
+{% block footer %}
+
+{%endblock%}
