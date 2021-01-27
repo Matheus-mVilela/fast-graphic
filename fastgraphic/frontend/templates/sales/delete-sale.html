@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block head_style %}
-<style>
 
-</style>
-{% endblock %}
 
 {% block content_style %}
 <style>
@@ -14,6 +10,7 @@
     }
 
     .margin-back-btn {
+        margin-top: 30px;
         margin-bottom: 15px;
     }
 
@@ -27,24 +24,8 @@
 
 
 {% block content %}
-<div class="row justify-content-center align-items-center">
-    <div class="col-8">
-        <div class="container search-bar">
-            <form action="{% url 'application:sale-create' %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="input-group mb-3">
-                    <input type="text" name="value" class="form-control" placeholder="Pesquisar por nome"
-                        aria-label="Pesquisar por nome" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
 <div class="row">
+    <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
     <div class="col-12">
         <div class="container">
             <ul class="list-group overflow-auto" style='height: 60vh'>
