@@ -46,6 +46,11 @@ urlpatterns = [
         name='sale-fast-create',
     ),
     path(
+        'sales/delete/select/employee',
+        decorators.login_required(views.SaleDeleteSelecEmployeeView.as_view()),
+        name='sale-delete-select-employee',
+    ),
+    path(
         'sales/delete',
         decorators.login_required(views.SaleDeleteView.as_view()),
         name='sale-delete',

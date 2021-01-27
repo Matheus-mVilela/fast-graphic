@@ -246,9 +246,13 @@ class SaleFastCreateView(views.View):
         return shortcuts.redirect('application:dashboard')
 
 
-class SaleDeleteView(views.View):
+class SaleDeleteSelecEmployeeView(views.View):
     def get(self, request):
         return shortcuts.render(
             request, 'sales/delete-sale-select-employee.html',
         )
 
+
+class SaleDeleteView(views.View):
+    def get(self, request):
+        return shortcuts.render(request, 'sales/delete-sale.html',)
