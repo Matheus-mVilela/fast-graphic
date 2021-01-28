@@ -1,10 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block head_style %}
-<style>
-
-</style>
-{% endblock %}
 
 {% block content_style %}
 <style>
@@ -44,7 +39,8 @@
             <a class="btn btn-info sales-btn" href="{% url 'application:sale-fast' %}">Venda Rápida</a>
         </div>
         <div class="col-3">
-            <a class="btn btn-info sales-btn" href="#">Cancelar Venda</a>
+            <a class="btn btn-info sales-btn" href="{% url 'application:sale-delete-select-employee' %}">Cancelar
+                Venda</a>
         </div>
     </div>
 </div>

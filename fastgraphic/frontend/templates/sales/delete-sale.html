@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content_style %}
+<style>
+    .search-bar {
+        margin-top: 20px;
+        margin-bottom: 22px;
+    }
+
+    .margin-back-btn {
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+    .delete-icon {
+        color: red;
+        font-size: 15px;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
+    <div class="col-12">
+        <div class="container">
+            <ul class="list-group overflow-auto" style='height: 60vh'>
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Venda e id</h5>
+                        <small class="mb-1">Total </small>
+                        <small class="text-muted">Hora da venda</small>
+                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Venda e id</h5>
+                        <small class="mb-1">Total </small>
+                        <small class="text-muted">Hora da venda</small>
+                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Venda e id</h5>
+                        <small class="mb-1">Total </small>
+                        <small class="text-muted">Hora da venda</small>
+                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Venda e id</h5>
+                        <small class="mb-1">Total </small>
+                        <small class="text-muted">Hora da venda</small>
+                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Venda e id</h5>
+                        <small class="mb-1">Total </small>
+                        <small class="text-muted">Hora da venda</small>
+                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Venda e id</h5>
+                        <small class="mb-1">Total </small>
+                        <small class="text-muted">Hora da venda</small>
+                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Venda e id</h5>
+                        <small class="mb-1">Total </small>
+                        <small class="text-muted">Hora da venda</small>
+                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Venda e id</h5>
+                        <small class="mb-1">Total </small>
+                        <small class="text-muted">Hora da venda</small>
+                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{% block footer %}
+
+{%endblock%}
