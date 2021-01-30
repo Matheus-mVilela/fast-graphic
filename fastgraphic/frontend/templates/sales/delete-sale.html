@@ -29,70 +29,16 @@
     <div class="col-12">
         <div class="container">
             <ul class="list-group overflow-auto" style='height: 60vh'>
+                {% for sale in sales %}
                 <li class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Venda e id</h5>
-                        <small class="mb-1">Total </small>
-                        <small class="text-muted">Hora da venda</small>
+                        <h5 class="mb-1">{{sale.pk}}</h5>
+                        <small class="mb-1">Total: {{sale.total_cost}}</small>
+                        <small class="text-muted">{{sale.created_at}}</small>
                         <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
                     </div>
                 </li>
-                <li class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Venda e id</h5>
-                        <small class="mb-1">Total </small>
-                        <small class="text-muted">Hora da venda</small>
-                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Venda e id</h5>
-                        <small class="mb-1">Total </small>
-                        <small class="text-muted">Hora da venda</small>
-                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Venda e id</h5>
-                        <small class="mb-1">Total </small>
-                        <small class="text-muted">Hora da venda</small>
-                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Venda e id</h5>
-                        <small class="mb-1">Total </small>
-                        <small class="text-muted">Hora da venda</small>
-                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Venda e id</h5>
-                        <small class="mb-1">Total </small>
-                        <small class="text-muted">Hora da venda</small>
-                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Venda e id</h5>
-                        <small class="mb-1">Total </small>
-                        <small class="text-muted">Hora da venda</small>
-                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Venda e id</h5>
-                        <small class="mb-1">Total </small>
-                        <small class="text-muted">Hora da venda</small>
-                        <a href="#"><i class="fas fa-trash-alt delete-icon"></i></a>
-                    </div>
-                </li>
+                {% endfor %}
             </ul>
         </div>
     </div>

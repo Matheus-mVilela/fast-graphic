@@ -248,11 +248,27 @@ class SaleFastCreateView(views.View):
 
 class SaleDeleteSelecEmployeeView(views.View):
     def get(self, request):
+        employees = services.get_employees()
+        form = forms.SelectEmployeeForm()
+
         return shortcuts.render(
-            request, 'sales/delete-sale-select-employee.html',
+            request,
+            'sales/delete-sale-select-employee.html',
+            context={'employees': employees, 'form': form},
         )
+
+    def post(self, request):
+        form = forms.SelectEmployeeForm(request.POST)
+        employee_id = form.data['employee_id']
+
+        return shortcuts.redirect('application:sale-delete', employee_id)
 
 
 class SaleDeleteView(views.View):
-    def get(self, request):
-        return shortcuts.render(request, 'sales/delete-sale.html',)
+    def get(self, request, employee_id):
+        sales = services.get_sales_by_employee_id(employee_id)
+
+        return shortcuts.render(
+            request, 'sales/delete-sale.html', context={'sales': sales}
+        )
+
