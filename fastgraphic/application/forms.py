@@ -25,3 +25,8 @@ class SaleFastCreateForm(forms.Form):
 
 class SelectEmployeeForm(forms.Form):
     employee_id = forms.IntegerField()
+
+
+class EmployeePasswordForm(forms.Form):
+    employee_password = forms.CharField()
+    sale_id = forms.IntegerField()

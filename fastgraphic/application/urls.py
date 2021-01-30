@@ -51,9 +51,8 @@ urlpatterns = [
         name='sale-delete-select-employee',
     ),
     path(
-        'sales/delete/<str:employee_id>',
+        'sales/delete/<str:employee_id>/',
         decorators.login_required(views.SaleDeleteView.as_view()),
         name='sale-delete',
     ),
 ]
-

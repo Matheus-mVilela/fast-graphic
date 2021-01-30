@@ -272,3 +272,32 @@ class SaleDeleteView(views.View):
             request, 'sales/delete-sale.html', context={'sales': sales}
         )
 
+    def post(self, request, employee_id):
+        form = forms.EmployeePasswordForm(request.POST)
+        if not form.is_valid():
+            messages.error(
+                request,
+                'Erro ao cancelar venda, verifique se a senha foi preenchida corretamente.',
+            )
+            shortcuts.redirect('application:sale-delete', employee_id)
+
+        employee = services.get_employee_by_id(employee_id)
+        password = form.data['employee_password']
+
+        is_correct_password = services.check_employee_password(
+            employee, password
+        )
+        if not is_correct_password:
+            messages.error(
+                request,
+                f'Senha inválida para o funcionario: {employee.user.username}.',
+            )
+            return shortcuts.redirect('application:sale-delete', employee_id)
+
+        sale = services.get_sale_by_id(form.data['sale_id'])
+        sale.delete()
+
+        messages.success(
+            request, f'A venda foi cancelada com sucesso!!!',
+        )
+        return shortcuts.redirect('application:sale-delete', employee_id)

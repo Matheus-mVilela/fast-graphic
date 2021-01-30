@@ -126,3 +126,8 @@ def create_fast_sale(product, employee, quantity, unit_price):
     sale.status = choices.STATUS_FINISHED
     sale.save()
     return sale
+
+
+def check_employee_password(employee, password) -> bool:
+    user = employee.user
+    return user.check_password(password)

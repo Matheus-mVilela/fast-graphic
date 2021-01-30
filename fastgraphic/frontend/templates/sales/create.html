@@ -114,8 +114,8 @@
                     <a href="{% url 'application:sale-delete-product' item.pk %}"><i
                             class="fas fa-trash-alt delete-icon"></i></a>
                 </li>
+                {% endfor %}
             </ul>
-            {% endfor %}
         </div>
         <form action="{% url 'application:sale-finish' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
