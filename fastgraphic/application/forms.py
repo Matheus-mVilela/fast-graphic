@@ -21,3 +21,12 @@ class SaleFastCreateForm(forms.Form):
     quantity = forms.IntegerField()
     unit_price = forms.FloatField()
     employee_id = forms.IntegerField()
+
+
+class SelectEmployeeForm(forms.Form):
+    employee_id = forms.IntegerField()
+
+
+class EmployeePasswordForm(forms.Form):
+    employee_password = forms.CharField()
+    sale_id = forms.IntegerField()

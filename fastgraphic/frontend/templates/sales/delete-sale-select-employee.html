@@ -32,19 +32,25 @@
 
 
 {% block content %}
-
 <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
 <div class="row justify-content-center align-items-center">
     <div class="col-4 col-select-employee">
         <div class="container ctn-select-employee">
-            <form action="{% url 'application:sale-delete' %}">
-                <h5>Selecione o vendedor para prosseguir com o cancelamento!</h5>
-                <select class="custom-select" name="employee_id" id="inputGroupSelect01">
-                    <option selected disabled>------</option>
-                    {% for employee in employees %}
-                    <option value="{{employee.pk}}">{{employee.user.username}}</option>
-                    {% endfor%}
-                </select>
+            <form action="{% url 'application:sale-delete-select-employee' %}" method="POST"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <h5>Escolha o vendedor para prosseguir com o cancelamento!</h5>
+                    </div>
+
+                    <select class="custom-select" name="employee_id" id="inputGroupSelect01">
+                        <option selected disabled>------</option>
+                        {% for employee in employees %}
+                        <option value="{{employee.pk}}">{{employee.user.username}}</option>
+                        {% endfor%}
+                    </select>
+                </div>
                 <button class="btn btn-success btn-block btn-next">Continuar</button>
             </form>
 

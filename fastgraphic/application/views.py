@@ -248,11 +248,56 @@ class SaleFastCreateView(views.View):
 
 class SaleDeleteSelecEmployeeView(views.View):
     def get(self, request):
+        employees = services.get_employees()
+        form = forms.SelectEmployeeForm()
+
         return shortcuts.render(
-            request, 'sales/delete-sale-select-employee.html',
+            request,
+            'sales/delete-sale-select-employee.html',
+            context={'employees': employees, 'form': form},
         )
+
+    def post(self, request):
+        form = forms.SelectEmployeeForm(request.POST)
+        employee_id = form.data['employee_id']
+
+        return shortcuts.redirect('application:sale-delete', employee_id)
 
 
 class SaleDeleteView(views.View):
-    def get(self, request):
-        return shortcuts.render(request, 'sales/delete-sale.html',)
+    def get(self, request, employee_id):
+        sales = services.get_sales_by_employee_id(employee_id)
+
+        return shortcuts.render(
+            request, 'sales/delete-sale.html', context={'sales': sales}
+        )
+
+    def post(self, request, employee_id):
+        form = forms.EmployeePasswordForm(request.POST)
+        if not form.is_valid():
+            messages.error(
+                request,
+                'Erro ao cancelar venda, verifique se a senha foi preenchida corretamente.',
+            )
+            shortcuts.redirect('application:sale-delete', employee_id)
+
+        employee = services.get_employee_by_id(employee_id)
+        password = form.data['employee_password']
+
+        is_correct_password = services.check_employee_password(
+            employee, password
+        )
+        if not is_correct_password:
+            messages.error(
+                request,
+                f'Senha inválida para o funcionario: {employee.user.username}.',
+            )
+            return shortcuts.redirect('application:sale-delete', employee_id)
+
+        sale = services.get_sale_by_id(form.data['sale_id'])
+        sale.delete()
+
+        messages.success(
+            request, f'A venda foi cancelada com sucesso!!!',
+        )
+        return shortcuts.redirect('application:sale-delete', employee_id)
