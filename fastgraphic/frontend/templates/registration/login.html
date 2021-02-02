@@ -2,10 +2,6 @@
 
 {% block head_style %}
 <style>
-    a.disabled {
-        pointer-events: none;
-        color: #ccc;
-    }
 </style>
 {% endblock %}
 
@@ -13,12 +9,17 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron text-center">
-    <form class="form-group" method="post">
-        <h4>Login</h4>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-primary" type="submit">Login</button>
-    </form>
+<div class="row">
+    <div class="col-12">
+        <div class="login-content">
+            <form class="form-group" method="post">
+                <h4>Login</h4>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary" type="submit">Login</button>
+            </form>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
