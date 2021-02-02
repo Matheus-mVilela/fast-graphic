@@ -2,6 +2,71 @@
 
 {% block head_style %}
 <style>
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center
+    }
+
+    .login-block {
+        height: 90vh;
+    }
+
+    .login-content {
+        width: 350px;
+        height: 450px;
+        padding: 10px;
+        border-radius: 12px;
+        background-color: rgb(231, 231, 231);
+        box-shadow: 1px 1px 6px rgb(109, 109, 109);
+    }
+
+    .login-form {
+        text-align: center;
+    }
+
+    .login-form h4 {
+        font-weight: bolder;
+        margin-top: 10px;
+    }
+
+
+    .login-form input {
+        width: 300px;
+        height: 40px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        text-decoration: none;
+        border: 0 none;
+        outline: 0 none;
+        border-bottom: solid grey 2px;
+        background-color: rgb(231, 231, 231);
+    }
+
+    .login-form input:hover {
+        border-bottom: solid rgba(0, 204, 78, 0.911) 2px;
+        transition: 1s;
+    }
+
+    .btn-login {
+        width: 250px;
+        height: 40px;
+        background-color: rgba(0, 204, 78, 0.911);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+
+    }
+
+    .btn-login:hover {
+        background-color: rgb(0, 104, 47);
+    }
 </style>
 {% endblock %}
 
@@ -9,16 +74,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12">
-        <div class="login-content">
-            <form class="form-group" method="post">
-                <h4>Login</h4>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button class="btn btn-primary" type="submit">Login</button>
-            </form>
-        </div>
+<div class="login-block">
+    <div class="login-content">
+        <form class="login-form" method="post">
+            {% csrf_token %}
+            <h4>Login</h4>
+            <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150"
+                required id="id_username" placeholder="Username">
+            <input type="password" name="password" autocomplete="current-password" required id="id_password"
+                placeholder="Password">
+            <div class="btn-block"><button class="btn-login" type="submit">Login</button>
+            </div>
+        </form>
     </div>
 </div>
 
