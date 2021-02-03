@@ -55,88 +55,96 @@
 
 
 {% block content %}
-<div class="row">
-    <div class="col-8">
-        <div class="container search-bar">
-            <form action="{% url 'application:sale-create' %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="input-group mb-3">
-                    <input type="text" name="value" class="form-control" placeholder="Pesquisar por nome"
-                        aria-label="Pesquisar por nome" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
+<div class="container">
+    <div class="row">
+        <div class="col-2"><a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
+        </div>
+        <div class="col-8">
+            <div class="container search-bar">
+                <form action="{% url 'application:sale-create' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" name="value" class="form-control" placeholder="Pesquisar por nome"
+                            aria-label="Pesquisar por nome" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit"
+                                id="button-addon2">Pesquisar</button>
+                        </div>
                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 list-products-bgc">
+            <div class="container">
+                <ul class="list-group overflow-auto list-sales-margin-top">
+                    {% for product in products %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center sale-item">
+                        {{ product.name }}
+                        <small class="text-muted">{{ product.code }}</small>
+                        <form action="{% url 'application:sale-add-product' %}" method="POST"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="hidden" name="product_id" value="{{ product.pk }}">
+                                <input type="number" min="0" required name="quantity" class="form-control"
+                                    placeholder="Quantidade">
+                                <input type="number" min="0" step="0.1" required name="unit_price" class="form-control"
+                                    value="{{ product.price }}" placeholder="Preço">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" type="submit"><i
+                                            class="fas fa-plus-circle"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-4 sales-cart">
+            <div class="container overflow-auto" style="height: 50vh">
+                <ul class="list-group">
+                    {% for item in sale.saleproduct_set.all %}
+                    <li class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ item.product.name }}</h5>
+                        </div>
+                        <small class="mb-1">Quantidade: {{ item.quantity }}</small>
+                        <small class="text-muted">Valor unitário: {{item.unit_price }} </small> |
+                        <small class="text-muted">Valor total: {{ item.total_cost }} </small>
+                        <a href="{% url 'application:sale-delete-product' item.pk %}"><i
+                                class="fas fa-trash-alt delete-icon"></i></a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <form class="form-sale-finish" action="{% url 'application:sale-finish' %}" method="POST"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group mb-3 employee-margin-top">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Vendedor</label>
+                    </div>
+                    <select class="custom-select" name="employee_id" id="inputGroupSelect01">
+                        <option selected disabled>------</option>
+                        {% for employee in employees %}
+                        <option value="{{employee.pk}}">{{employee.user.username}}</option>
+                        {% endfor%}
+                    </select>
                 </div>
+
+                <h5>Total:{{sale.total_cost}}</h5>
+                <button class="btn btn-success" type="submit">Finalizar Venda</button>
+                <input type="hidden" name="sale_id" value="{{ sale.pk }}">
+
             </form>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-8 list-products-bgc">
-        <div class="container">
-            <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
-            <ul class="list-group overflow-auto list-sales-margin-top">
-                {% for product in products %}
-                <li class="list-group-item d-flex justify-content-between align-items-center sale-item">
-                    {{ product.name }}
-                    <small class="text-muted">{{ product.code }}</small>
-                    <form action="{% url 'application:sale-add-product' %}" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <input type="hidden" name="product_id" value="{{ product.pk }}">
-                            <input type="number" min="0" required name="quantity" class="form-control"
-                                placeholder="Quantidade">
-                            <input type="number" min="0" step="0.1" required name="unit_price" class="form-control"
-                                value="{{ product.price }}" placeholder="Preço">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-success" type="submit"><i
-                                        class="fas fa-plus-circle"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
 
-    <div class="col-4 sales-cart">
-        <div class="container overflow-auto" style="height: 50vh">
-            <ul class="list-group">
-                {% for item in sale.saleproduct_set.all %}
-                <li class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ item.product.name }}</h5>
-                    </div>
-                    <small class="mb-1">Quantidade: {{ item.quantity }}</small>
-                    <small class="text-muted">Valor unitário: {{item.unit_price }} </small> |
-                    <small class="text-muted">Valor total: {{ item.total_cost }} </small>
-                    <a href="{% url 'application:sale-delete-product' item.pk %}"><i
-                            class="fas fa-trash-alt delete-icon"></i></a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <form action="{% url 'application:sale-finish' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="input-group mb-3 employee-margin-top">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Vendedor</label>
-                </div>
-                <select class="custom-select" name="employee_id" id="inputGroupSelect01">
-                    <option selected disabled>------</option>
-                    {% for employee in employees %}
-                    <option value="{{employee.pk}}">{{employee.user.username}}</option>
-                    {% endfor%}
-                </select>
-            </div>
-            <h5>Total:{{sale.total_cost}}</h5>
-            <input type="hidden" name="sale_id" value="{{ sale.pk }}">
-            <button class="btn btn-success" type="submit">Finalizar Venda</button>
-        </form>
-    </div>
-</div>
-</div>
 {%endblock%}
 
 {% block footer %}

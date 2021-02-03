@@ -24,7 +24,7 @@
     </div>
 
     <br>
-    <div class="list-group overflow-auto" style="height: 35vh;">
+    <div class="list-group overflow-auto" style="height: 50vh;">
         {% for product in sale.saleproduct_set.all %}
         <span class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
@@ -44,4 +44,6 @@
     </div>
 
 </div>
+{%endblock%}
+{% block footer %}
 {%endblock%}
