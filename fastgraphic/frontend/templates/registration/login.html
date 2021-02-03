@@ -12,15 +12,15 @@
     }
 
     .login-block {
-        height: 90vh;
+        height: 80vh;
     }
 
     .login-content {
         width: 350px;
-        height: 450px;
+        height: 260px;
         padding: 10px;
         border-radius: 12px;
-        background-color: rgb(231, 231, 231);
+        background-image: linear-gradient(rgb(97, 108, 131), rgb(0, 23, 53));
         box-shadow: 1px 1px 6px rgb(109, 109, 109);
     }
 
@@ -31,32 +31,31 @@
     .login-form h4 {
         font-weight: bolder;
         margin-top: 10px;
+        margin-bottom: 20px;
+        color: white;
     }
 
 
     .login-form input {
-        width: 300px;
+        width: 250px;
         height: 40px;
-        margin-top: 20px;
         margin-bottom: 20px;
+        padding: 3% 10%;
 
         text-decoration: none;
         border: 0 none;
         outline: 0 none;
-        border-bottom: solid grey 2px;
+        border-radius: 10px;
         background-color: rgb(231, 231, 231);
     }
 
-    .login-form input:hover {
-        border-bottom: solid rgba(0, 204, 78, 0.911) 2px;
-        transition: 1s;
-    }
 
     .btn-login {
         width: 250px;
         height: 40px;
-        background-color: rgba(0, 204, 78, 0.911);
-        border: none;
+        background-color: rgba(0, 132, 255, 0.911);
+        border: 0 none;
+        outline: 0 none;
         border-radius: 10px;
         color: white;
         font-size: 15px;
@@ -65,7 +64,8 @@
     }
 
     .btn-login:hover {
-        background-color: rgb(0, 104, 47);
+        border: solid white 1px;
+        transition: 4s;
     }
 </style>
 {% endblock %}
@@ -78,12 +78,12 @@
     <div class="login-content">
         <form class="login-form" method="post">
             {% csrf_token %}
-            <h4>Login</h4>
+            <h4>Welcome</h4>
             <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150"
                 required id="id_username" placeholder="Username">
             <input type="password" name="password" autocomplete="current-password" required id="id_password"
                 placeholder="Password">
-            <div class="btn-block"><button class="btn-login" type="submit">Login</button>
+            <div class="btn-block"><button class="btn-login" type="submit">Sign in</button>
             </div>
         </form>
     </div>
