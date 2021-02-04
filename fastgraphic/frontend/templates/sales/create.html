@@ -42,12 +42,24 @@
         background-color: rgb(201, 201, 201);
     }
 
-    .finish-btn {
-        margin-top: 15px;
-    }
+
 
     .employee-margin-top {
         margin-top: 15px;
+    }
+
+    .finish-content label {
+        font-size: 30px;
+        font-weight: bold;
+        color: red;
+        margin-left: 20px;
+        padding: 2px 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
     }
 </style>
 
@@ -56,9 +68,8 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-2"><a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
-        </div>
+    <div class="row justify-content-center align-items-center">
+        <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
         <div class="col-8">
             <div class="container search-bar">
                 <form action="{% url 'application:sale-create' %}" method="POST" enctype="multipart/form-data">
@@ -81,8 +92,9 @@
                 <ul class="list-group overflow-auto list-sales-margin-top">
                     {% for product in products %}
                     <li class="list-group-item d-flex justify-content-between align-items-center sale-item">
-                        {{ product.name }}
-                        <small class="text-muted">{{ product.code }}</small>
+                        <label for="">
+                            Código:{{product.code}} <br> {{product.name}}
+                        </label>
                         <form action="{% url 'application:sale-add-product' %}" method="POST"
                             enctype="multipart/form-data">
                             {% csrf_token %}
@@ -135,10 +147,11 @@
                         {% endfor%}
                     </select>
                 </div>
-
-                <h5>Total:{{sale.total_cost}}</h5>
-                <button class="btn btn-success" type="submit">Finalizar Venda</button>
-                <input type="hidden" name="sale_id" value="{{ sale.pk }}">
+                <div class="finish-content">
+                    <label for="">Total R$:{{sale.total_cost}}</label>
+                    <button class="btn btn-success" type="submit">Finalizar Venda</button>
+                    <input type="hidden" name="sale_id" value="{{ sale.pk }}">
+                </div>
 
             </form>
         </div>

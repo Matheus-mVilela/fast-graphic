@@ -10,13 +10,9 @@
 
     .col-select-employee {
         width: 100%;
-        height: 30vh;
+        height: 40vh;
         margin-top: 30px;
         background-color: rgb(201, 201, 201);
-    }
-
-    .ctn-select-employee {
-        margin-top: 30px;
     }
 
     .btn-next {
@@ -32,7 +28,7 @@
 
 
 {% block content %}
-<a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
+
 <div class="row justify-content-center align-items-center">
     <div class="col-4 col-select-employee">
         <div class="container ctn-select-employee">
@@ -52,6 +48,7 @@
                     </select>
                 </div>
                 <button class="btn btn-success btn-block btn-next">Continuar</button>
+                <a class="btn btn-info btn-block btn-next" href="{% url 'application:dashboard' %}">Voltar</a>
             </form>
 
         </div>

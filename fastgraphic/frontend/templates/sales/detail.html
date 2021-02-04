@@ -15,8 +15,8 @@
 
 {% block content %}
 <div class="container">
+    <a href="/" class="btn btn-info">Voltar</a>
     <div>
-        <a href="/" class="btn btn-info">Voltar</a>
         <br><br>
         <h1>
             {{ sale.pk }} - {{ sale.employee.user.username }}
@@ -24,19 +24,22 @@
     </div>
 
     <br>
-    <div class="list-group overflow-auto" style="height: 50vh;">
+    <ul class="list-group overflow-auto" style="height: 50vh;">
         {% for product in sale.saleproduct_set.all %}
-        <span class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ product.name }}</h5>
-                <small class="text-muted">{{ product.created_at }}</small>
-            </div>
-            <p class="mb-1">Total R$ : {{ product.total_cost }}</p>
-            <small class="text-muted">Quantidade: {{ product.quantity }} -
-                Preço unitário : {{ product.unit_price}}</small>
-        </span>
+        <li>
+            <span class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5>{{product.product.name}}</h5>
+                    <small class="text-muted">{{ product.created_at }}</small>
+                </div>
+                <p class="mb-1">Total R$ : {{ product.total_cost }}</p>
+                <small class="text-muted">Quantidade: {{ product.quantity }} -
+                    Preço unitário : {{ product.unit_price}}</small>
+            </span>
+        </li>
+
         {% endfor %}
-    </div>
+    </ul>
 
     <div>
         <br>
