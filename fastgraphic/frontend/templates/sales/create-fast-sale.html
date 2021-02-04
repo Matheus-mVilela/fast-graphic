@@ -26,35 +26,41 @@
         margin-top: 10px;
         margin-bottom: 15px;
     }
+
+    .list-grup-products {
+        margin-top: 30px;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="row justify-content-center align-items-center">
-    <div class="col-8">
-        <div class="container search-bar">
-            <form action="{% url 'application:sale-fast' %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="input-group mb-3">
-                    <input type="text" name="value" class="form-control" placeholder="Pesquisar por nome"
-                        aria-label="Pesquisar por nome" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar</button>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
+        <div class="col-8">
+            <div class="container search-bar">
+                <form action="{% url 'application:sale-fast' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" name="value" class="form-control" placeholder="Pesquisar por nome"
+                            aria-label="Pesquisar por nome" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit"
+                                id="button-addon2">Pesquisar</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12 list-products-bgc ">
-        <div class="container overflow-auto" style="height: 60vh;">
-            <a class="btn btn-info margin-back-btn" href="{% url 'application:dashboard' %}">Voltar</a>
-            <ul class="list-group">
+    <div class="row">
+        <div class="col-12 list-products-bgc ">
+            <ul class="list-group  overflow-auto list-grup-products" style="height: 70vh;">
                 {% for product in products %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ product.name }}
-                    <small class="text-muted">{{ product.code }}</small>
+                    <label for="">
+                        Código:{{product.code}} <br> {{product.name}}
+                    </label>
                     <form action="{% url 'application:sale-fast-create' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="input-group mb-3">
@@ -77,9 +83,13 @@
                 </li>
                 {%endfor%}
             </ul>
+
         </div>
     </div>
 </div>
 
-
 {%endblock%}
+
+{% block footer %}
+
+{% endblock %}
