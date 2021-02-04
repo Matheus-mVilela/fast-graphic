@@ -18,7 +18,7 @@
     }
 
     .login-block {
-        height: 70vh;
+        height: 80vh;
     }
 
     .login-content {
@@ -78,6 +78,11 @@
     .btn-login:hover {
         background: linear-gradient(to bottom right, rgba(0, 132, 255, 0.911), rgb(40, 41, 139))
     }
+
+    .logo-copy {
+        width: auto;
+        height: 130px;
+    }
 </style>
 {% endblock %}
 
@@ -87,7 +92,7 @@
 {% block content %}
 <div class="login-block">
     <div class="login-content">
-        <img class="logo-copy" src="../../img/logocopy.png" alt="">
+        <img class="logo-copy" src="../../static/img/logocopy.png" alt="Logo-Copystar">
         <form class="login-form" method="post">
             {% csrf_token %}
             <div>
