@@ -29,6 +29,7 @@
 
 {% block content %}
 <div class="container">
+    <div><a class="btn btn-info " href="{% url 'application:dashboard' %}">Voltar</a></div>
     <div class="row justify-content-center align-items-center">
         <div class="col-12 list-sale-delete">
             <div class="container">
@@ -41,7 +42,7 @@
                             <small class="text-muted">{{sale.created_at}}</small>
 
                             <!-- Button trigger modal -->
-                            <a class="btn btn-info " href="{% url 'application:dashboard' %}">Voltar</a>
+
                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#Sale{{sale.pk}}">
                                 <i class="fas fa-trash-alt delete-icon"></i>
