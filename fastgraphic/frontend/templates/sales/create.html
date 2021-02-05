@@ -117,7 +117,7 @@
         </div>
 
         <div class="col-4 sales-cart">
-            <div class="container overflow-auto" style="height: 50vh">
+            <div class="container overflow-auto" style="height: 40vh">
                 <ul class="list-group">
                     {% for item in sale.saleproduct_set.all %}
                     <li class="list-group-item list-group-item-action flex-column align-items-start">
@@ -136,10 +136,20 @@
             <form class="form-sale-finish" action="{% url 'application:sale-finish' %}" method="POST"
                 enctype="multipart/form-data">
                 {% csrf_token %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Pagamento</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected disabled>------</option>
+                        <option value="  {{payment}}">{{payment}}</option>
+                    </select>
+                </div>
                 <div class="input-group mb-3 employee-margin-top">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Vendedor</label>
                     </div>
+
                     <select class="custom-select" name="employee_id" id="inputGroupSelect01">
                         <option selected disabled>------</option>
                         {% for employee in employees %}

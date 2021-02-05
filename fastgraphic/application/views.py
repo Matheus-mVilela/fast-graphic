@@ -26,6 +26,7 @@ class SaleCreateView(views.View):
         form = forms.FilterProductForm()
         products = services.get_products()
         employees = services.get_employees()
+        payment = services.get_payment_sale()
 
         try:
             employee = request.user.employee
@@ -46,6 +47,7 @@ class SaleCreateView(views.View):
                 'employees': employees,
                 'sale': sale,
                 'form_finish_sale': forms.SaleFinishForm(),
+                'payment': payment,
             },
         )
 

@@ -60,6 +60,13 @@ class SaleProduct(core.models.BaseModel):
 class Sale(core.models.BaseModel):
     employee = models.ForeignKey('Employee', on_delete=models.CASCADE,)
     discount = models.FloatField(null=True, blank=True)
+    payment_method = models.CharField(
+        max_length=20,
+        choices=choices.PAYMENT_METHOD_CHOICES,
+        null=False,
+        blank=False,
+        default=choices.MONEY,
+    )
     status = models.CharField(
         max_length=20,
         choices=choices.STATUS_CHOICES,

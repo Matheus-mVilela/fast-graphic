@@ -1,4 +1,4 @@
-from . import models, choices
+from . import models, choices, forms
 
 
 def get_sales_by_current_day():
@@ -35,6 +35,10 @@ def get_products_with_high_demand():
 
 def get_employees():
     return models.Employee.objects.filter(is_machine=False).order_by('-id')
+
+
+def get_payment_sale():
+    pass
 
 
 def get_product_by_id(_id):
