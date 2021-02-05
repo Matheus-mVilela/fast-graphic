@@ -26,7 +26,6 @@ class SaleCreateView(views.View):
         form = forms.FilterProductForm()
         products = services.get_products()
         employees = services.get_employees()
-        payment = services.get_payment_sale()
 
         try:
             employee = request.user.employee
@@ -47,7 +46,6 @@ class SaleCreateView(views.View):
                 'employees': employees,
                 'sale': sale,
                 'form_finish_sale': forms.SaleFinishForm(),
-                'payment': payment,
             },
         )
 
@@ -151,7 +149,9 @@ class SaleFinishView(views.View):
             )
             return shortcuts.redirect('application:sale-create')
 
-        sale_finished = services.finish_sale(sale, employee)
+        sale_finished = services.finish_sale(
+            sale, employee, form.data['payment_method']
+        )
         if sale_finished.status == choices.STATUS_OPEN:
             messages.warning(
                 request, f'Falha ao finalizar a venda.',

@@ -140,9 +140,10 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Pagamento</label>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected disabled>------</option>
-                        <option value="  {{payment}}">{{payment}}</option>
+                    <select class="custom-select" name="payment_method">
+                        <option selected value="money">Dinheiro</option>
+                        <option value="credit-card">Cartão de Crédito</option>
+                        <option value="debit-card">Cartão de Débito</option>
                     </select>
                 </div>
                 <div class="input-group mb-3 employee-margin-top">
@@ -167,7 +168,6 @@
         </div>
     </div>
 </div>
-
 {%endblock%}
 
 {% block footer %}

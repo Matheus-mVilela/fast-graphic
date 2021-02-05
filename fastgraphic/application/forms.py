@@ -1,5 +1,7 @@
 from django import forms
 
+from . import choices
+
 
 class FilterProductForm(forms.Form):
     value = forms.CharField(label='Buscar produto')
@@ -12,6 +14,9 @@ class SaleAddProductForm(forms.Form):
 
 
 class SaleFinishForm(forms.Form):
+    payment_method = forms.ChoiceField(
+        choices=choices.PAYMENT_METHOD_CHOICES, label='Métodos de Pagamento'
+    )
     sale_id = forms.IntegerField()
     employee_id = forms.IntegerField()
 

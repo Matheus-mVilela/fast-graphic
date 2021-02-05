@@ -1,4 +1,4 @@
-from . import models, choices, forms
+from . import models, choices
 
 
 def get_sales_by_current_day():
@@ -35,10 +35,6 @@ def get_products_with_high_demand():
 
 def get_employees():
     return models.Employee.objects.filter(is_machine=False).order_by('-id')
-
-
-def get_payment_sale():
-    pass
 
 
 def get_product_by_id(_id):
@@ -114,8 +110,9 @@ def get_last_sale_by_employee(employee):
     return _sale
 
 
-def finish_sale(sale, employee):
+def finish_sale(sale, employee, payment_method):
     sale.employee = employee
+    sale.payment_method = payment_method
     sale.status = choices.STATUS_FINISHED
     sale.save()
     return sale
