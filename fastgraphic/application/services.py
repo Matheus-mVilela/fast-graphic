@@ -1,14 +1,30 @@
+import datetime
+
 from . import models, choices
 
 
+def _get_today_start_and_end():
+    today = datetime.datetime.now()
+    tomorrow = today + datetime.timedelta(1)
+    today_start = datetime.datetime.combine(today, datetime.time())
+    today_end = datetime.datetime.combine(tomorrow, datetime.time())
+    return today_start, today_end
+
+
 def get_sales_by_current_day():
-    # TODO arruma isso.
-    return models.Sale.objects.all()
+    today_start, today_end = _get_today_start_and_end()
+    return models.Sale.objects.filter(
+        created_at__lte=today_end, created_at__gte=today_start
+    )
 
 
 def get_sales_by_employee_id(employee_id):
-    # TODO vendas diarias
-    return models.Sale.objects.filter(employee_id=employee_id)
+    today_start, today_end = _get_today_start_and_end()
+    return models.Sale.objects.filter(
+        employee_id=employee_id,
+        created_at__lte=today_end,
+        created_at__gte=today_start,
+    )
 
 
 def get_sale_by_id(_id):
