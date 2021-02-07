@@ -3,6 +3,7 @@ from django.contrib.auth import decorators
 
 from . import views
 
+
 app_name = 'application'
 urlpatterns = [
     path(
