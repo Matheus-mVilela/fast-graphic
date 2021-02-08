@@ -22,6 +22,9 @@ class SaleFinishForm(forms.Form):
 
 
 class SaleFastCreateForm(forms.Form):
+    payment_method = forms.ChoiceField(
+        choices=choices.PAYMENT_METHOD_CHOICES, label='Métodos de Pagamento'
+    )
     product_id = forms.IntegerField()
     quantity = forms.IntegerField()
     unit_price = forms.FloatField()
