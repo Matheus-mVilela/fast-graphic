@@ -22,6 +22,9 @@ from django.conf import settings
 
 import core.views
 
+handler404 = 'core.views.handler404'
+handler500 = 'core.views.handler500'
+
 urlpatterns = [
     path('', include(application_urls)),
     path('login/', core.views.LoginView.as_view(), name='login'),
@@ -33,5 +36,3 @@ if settings.DEBUG:
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
 
-handler404 = 'core.views.handler404'
-handler500 = 'core.views.handler500'

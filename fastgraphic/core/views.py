@@ -1,4 +1,5 @@
 from django.contrib.auth import views as views_auth
+from django.shortcuts import render
 
 
 class LoginView(views_auth.LoginView):
@@ -8,10 +9,10 @@ class LoginView(views_auth.LoginView):
         return '/'
 
 
-def handler404(request, *args, **argv):
-    return render(request, '404.html', status=404)
+def handler404(request, exception):
+    return render(request, 'error/404.html', status=404)
 
 
-def handler500(request, *args, **argv):
-    return render(request, '500.html', status=500)
+def handler500(request):
+    return render(request, 'error/500.html', status=500)
 
