@@ -94,3 +94,8 @@ class Sale(core.models.BaseModel):
 
     def __str__(self):
         return f'{self.pk}'
+
+    @property
+    def payment_method_display(self):
+        _dict = dict(choices.PAYMENT_METHOD_CHOICES)
+        return _dict[self.payment_method]
