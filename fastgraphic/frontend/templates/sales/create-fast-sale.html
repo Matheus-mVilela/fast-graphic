@@ -70,6 +70,14 @@
                             <input type="number" min="0" step="0.1" required name="unit_price" class="form-control"
                                 value="{{product.price}}" placeholder="Preço">
                             <div class="input-group-append">
+
+                                <select class="custom-select" name="payment_method">
+                                    <option selected value="money">Dinheiro</option>
+                                    <option value="credit-card">Cartão de Crédito</option>
+                                    <option value="debit-card">Cartão de Débito</option>
+                                </select>
+                            </div>
+                            <div class="input-group-append">
                                 <select class="custom-select" name="employee_id" id="inputGroupSelect01">
                                     <option selected disabled>------</option>
                                     {% for employee in employees %}

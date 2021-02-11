@@ -126,19 +126,20 @@ def get_last_sale_by_employee(employee):
     return _sale
 
 
-def finish_sale(sale, employee):
+def finish_sale(sale, employee, payment_method):
     sale.employee = employee
+    sale.payment_method = payment_method
     sale.status = choices.STATUS_FINISHED
     sale.save()
     return sale
 
 
-def create_fast_sale(product, employee, quantity, unit_price):
-
+def create_fast_sale(product, employee, quantity, unit_price, payment_method):
     sale = models.Sale.objects.create(employee=employee)
     sale_product = models.SaleProduct.objects.create(
         sale=sale, product=product, quantity=quantity, unit_price=unit_price
     )
+    sale.payment_method = payment_method
     sale.status = choices.STATUS_FINISHED
     sale.save()
     return sale

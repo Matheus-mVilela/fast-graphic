@@ -149,7 +149,9 @@ class SaleFinishView(views.View):
             )
             return shortcuts.redirect('application:sale-create')
 
-        sale_finished = services.finish_sale(sale, employee)
+        sale_finished = services.finish_sale(
+            sale, employee, form.data['payment_method']
+        )
         if sale_finished.status == choices.STATUS_OPEN:
             messages.warning(
                 request, f'Falha ao finalizar a venda.',
@@ -237,8 +239,11 @@ class SaleFastCreateView(views.View):
         product = services.get_product_by_id(form.data['product_id'])
         quantity = form.cleaned_data['quantity']
         unit_price = form.cleaned_data['unit_price']
+        payment_method = form.data['payment_method']
 
-        services.create_fast_sale(product, employee, quantity, unit_price)
+        services.create_fast_sale(
+            product, employee, quantity, unit_price, payment_method
+        )
 
         messages.success(
             request, f'A venda foi finalizada com sucesso!!!',
