@@ -29,3 +29,7 @@ class SaleAdmin(admin.ModelAdmin):
         'total_cost',
     )
     inlines = [SaleProductInline]
+    list_filter = [
+        'payment_method',
+    ]
+
