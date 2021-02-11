@@ -306,3 +306,4 @@ class SaleDeleteView(views.View):
             request, f'A venda foi cancelada com sucesso!!!',
         )
         return shortcuts.redirect('application:sale-delete', employee_id)
+
