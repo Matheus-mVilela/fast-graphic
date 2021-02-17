@@ -14,31 +14,57 @@ class Employee(core.models.BaseModel):
         ('administrator', 'Administrador(a)'),
     )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=20)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
-    is_machine = models.BooleanField(default=False)
+    user = models.OneToOneField(
+        User, verbose_name='Funcionario', on_delete=models.CASCADE
+    )
+    phone = models.CharField(max_length=20, verbose_name='Contato')
+    role = models.CharField(
+        max_length=20, choices=ROLE_CHOICES, verbose_name='Cargo'
+    )
+    is_machine = models.BooleanField(default=False, verbose_name='Máquina')
+
+    class Meta:
+        verbose_name = 'Funcionario'
+        verbose_name_plural = 'Funcionarios'
 
     def __str__(self):
         return f'{self.user.username}'
 
 
 class Product(core.models.BaseModel):
-    code = models.CharField(max_length=30, unique=True)
-    name = models.CharField(max_length=35)
-    price = models.FloatField()
-    description = models.CharField(max_length=50, null=True, blank=True)
-    is_high_demand = models.BooleanField(default=False)
+    code = models.CharField(max_length=30, unique=True, verbose_name='Código')
+    name = models.CharField(max_length=35, verbose_name='Nome')
+    price = models.FloatField(verbose_name='Preço')
+    description = models.CharField(
+        max_length=50, null=True, blank=True, verbose_name='Descrição'
+    )
+    is_high_demand = models.BooleanField(
+        default=False, verbose_name='Alta de demanda'
+    )
+
+    class Meta:
+        verbose_name = 'Produto'
+        verbose_name_plural = 'Produtos'
 
     def __str__(self):
         return f'{self.name} - {self.price}'
 
 
 class SaleProduct(core.models.BaseModel):
-    sale = models.ForeignKey('Sale', on_delete=models.CASCADE)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
-    unit_price = models.FloatField(null=True, blank=True)
+    sale = models.ForeignKey(
+        'Sale', on_delete=models.CASCADE, verbose_name='Venda'
+    )
+    product = models.ForeignKey(
+        'Product', on_delete=models.CASCADE, verbose_name='Produto'
+    )
+    quantity = models.PositiveIntegerField(verbose_name='Quantidade')
+    unit_price = models.FloatField(
+        null=True, blank=True, verbose_name='Preço unitário'
+    )
+
+    class Meta:
+        verbose_name = 'Item da Venda'
+        verbose_name_plural = 'Itens da Venda'
 
     @property
     def total_cost(self):
@@ -58,14 +84,19 @@ class SaleProduct(core.models.BaseModel):
 
 
 class Sale(core.models.BaseModel):
-    employee = models.ForeignKey('Employee', on_delete=models.CASCADE,)
-    discount = models.FloatField(null=True, blank=True)
+    employee = models.ForeignKey(
+        'Employee', on_delete=models.CASCADE, verbose_name='Funcionario'
+    )
+    discount = models.FloatField(
+        null=True, blank=True, verbose_name='Desconto'
+    )
     payment_method = models.CharField(
         max_length=20,
         choices=choices.PAYMENT_METHOD_CHOICES,
         null=False,
         blank=False,
         default=choices.MONEY,
+        verbose_name='Forma de pagamento',
     )
     status = models.CharField(
         max_length=20,
@@ -74,6 +105,10 @@ class Sale(core.models.BaseModel):
         blank=False,
         default=choices.STATUS_OPEN,
     )
+
+    class Meta:
+        verbose_name = 'Venda'
+        verbose_name_plural = 'Vendas'
 
     @property
     def total_cost(self):

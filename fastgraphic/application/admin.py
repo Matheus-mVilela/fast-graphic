@@ -13,7 +13,9 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('code', 'name', 'price')
+    search_filed = ['name', 'code']
+    list_filter = ['is_high_demand']
 
 
 class SaleProductInline(admin.StackedInline):
@@ -29,3 +31,9 @@ class SaleAdmin(admin.ModelAdmin):
         'total_cost',
     )
     inlines = [SaleProductInline]
+    list_filter = [
+        'payment_method',
+        'created_at',
+    ]
+    search_fields = ['payment_method']
+
