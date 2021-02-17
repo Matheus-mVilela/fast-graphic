@@ -15,7 +15,7 @@ class Employee(core.models.BaseModel):
     )
 
     user = models.OneToOneField(
-        User, verbose_name='Colaborador', on_delete=models.CASCADE
+        User, verbose_name='Funcionario', on_delete=models.CASCADE
     )
     phone = models.CharField(max_length=20, verbose_name='Contato')
     role = models.CharField(
@@ -24,8 +24,8 @@ class Employee(core.models.BaseModel):
     is_machine = models.BooleanField(default=False, verbose_name='Máquina')
 
     class Meta:
-        verbose_name = 'Colaborador'
-        verbose_name_plural = 'Colaboradores'
+        verbose_name = 'Funcionario'
+        verbose_name_plural = 'Funcionarios'
 
     def __str__(self):
         return f'{self.user.username}'
@@ -39,7 +39,7 @@ class Product(core.models.BaseModel):
         max_length=50, null=True, blank=True, verbose_name='Descrição'
     )
     is_high_demand = models.BooleanField(
-        default=False, verbose_name='Alta de manda'
+        default=False, verbose_name='Alta de demanda'
     )
 
     class Meta:
@@ -63,8 +63,8 @@ class SaleProduct(core.models.BaseModel):
     )
 
     class Meta:
-        verbose_name = 'Produtos da Venda'
-        verbose_name_plural = 'Produtos da Venda'
+        verbose_name = 'Item da Venda'
+        verbose_name_plural = 'Itens da Venda'
 
     @property
     def total_cost(self):
@@ -85,7 +85,7 @@ class SaleProduct(core.models.BaseModel):
 
 class Sale(core.models.BaseModel):
     employee = models.ForeignKey(
-        'Employee', on_delete=models.CASCADE, verbose_name='Colaborador'
+        'Employee', on_delete=models.CASCADE, verbose_name='Funcionario'
     )
     discount = models.FloatField(
         null=True, blank=True, verbose_name='Desconto'
