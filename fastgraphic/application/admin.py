@@ -1,7 +1,7 @@
 import datetime
 
 from django.contrib import admin
-from . import models
+from . import models, services
 
 
 @admin.register(models.Employee)
@@ -46,30 +46,38 @@ class SaleAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
 
         now = datetime.datetime.now()
-        labels_month, total_cost_list = self._mount_data(now.year, now.month)
-        last_year_labels_month, last_year_total_cost_list = self._mount_data(
-            now.year - 1, now.month
+        labels_month, total_cost_list = self._group_sales_by_month(
+            now.year, now.month
+        )
+        (
+            last_year_labels_month,
+            last_year_total_cost_list,
+        ) = self._group_sales_by_month(now.year - 1, now.month)
+        labels_week, total_cost_weeks = self._group_sales_by_week(
+            now.year, now.month
         )
 
         extra_context['current_revenues'] = {
-            'labels': ','.join(['"{}"'.format(data) for data in labels_month]),
+            'labels': self._format_data_for_template(labels_month),
             'label': f'Receitas {now.year}',
-            'data': ','.join(
-                ['"{}"'.format(data) for data in total_cost_list]
-            ),
+            'data': self._format_data_for_template(total_cost_list),
         }
         extra_context['last_revenues'] = {
-            'labels': ','.join(
-                ['"{}"'.format(data) for data in last_year_labels_month]
-            ),
+            'labels': self._format_data_for_template(last_year_labels_month),
             'label': f'Receitas {now.year - 1}',
-            'data': ','.join(
-                ['"{}"'.format(data) for data in last_year_total_cost_list]
-            ),
+            'data': self._format_data_for_template(last_year_total_cost_list),
+        }
+        extra_context['weeks_revenue'] = {
+            'labels': self._format_data_for_template(labels_week),
+            'label': f'Vendas por semana',
+            'data': self._format_data_for_template(total_cost_weeks),
         }
         return super(SaleAdmin, self).changelist_view(request, extra_context)
 
-    def _mount_data(self, year, month):
+    def _format_data_for_template(self, data):
+        return ','.join(['"{}"'.format(item) for item in data])
+
+    def _group_sales_by_month(self, year, month):
         sales = models.Sale.get_by_year(year)
 
         data = {}
@@ -110,3 +118,17 @@ class SaleAdmin(admin.ModelAdmin):
             labels_month.append(_month)
 
         return labels_month, total_cost_list
+
+    def _group_sales_by_week(self, year, month):
+        sales = models.Sale.get_by_year_and_month(year, month)
+        sales_per_weeks = {}
+        for sale in sales:
+            week_number = services.week_number_of_month(sale.created_at)
+            if week_number not in sales_per_weeks.keys():
+                sales_per_weeks[week_number] = sale.total_cost
+            else:
+                sales_per_weeks[week_number] += sale.total_cost
+
+        labels_week = [f'Semana {key}' for key in sales_per_weeks.keys()]
+        total_cost_list = list(sales_per_weeks.values())
+        return labels_week[::-1], total_cost_list

@@ -140,3 +140,9 @@ class Sale(core.models.BaseModel):
         return Sale.objects.filter(created_at__year=year).order_by(
             '-created_at'
         )
+
+    @classmethod
+    def get_by_year_and_month(cls, year, month):
+        return Sale.objects.filter(
+            created_at__year=year, created_at__month=month
+        ).order_by('-created_at')

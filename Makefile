@@ -17,6 +17,9 @@ build: delete-container ## Build the container
 createsuperuser: start
 	@docker-compose exec backend /bin/bash -c "./manage.py createsuperuser"
 
+format: ## Style code
+	@docker-compose exec backend /bin/bash -c "isort . && black -l 79 . && flake8 ."
+
 test: start ## Run tests
 	@docker-compose exec backend /bin/bash -c "./manage.py test"
 
