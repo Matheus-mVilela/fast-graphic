@@ -1,11 +1,13 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.core import exceptions
-from django.db.models import Sum, F, FloatField, Aggregate
-from . import choices
 from datetime import datetime
 
+from django.contrib.auth.models import User
+from django.core import exceptions
+from django.db import models
+from django.db.models import Aggregate, F, FloatField, Sum
+
 import core.models
+
+from . import choices
 
 
 class Employee(core.models.BaseModel):
@@ -140,3 +142,9 @@ class Sale(core.models.BaseModel):
         return Sale.objects.filter(created_at__year=year).order_by(
             '-created_at'
         )
+
+    @classmethod
+    def get_by_year_and_month(cls, year, month):
+        return Sale.objects.filter(
+            created_at__year=year, created_at__month=month
+        ).order_by('-created_at')

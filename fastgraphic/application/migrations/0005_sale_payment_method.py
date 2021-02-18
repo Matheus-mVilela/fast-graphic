@@ -13,6 +13,14 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sale',
             name='payment_method',
-            field=models.CharField(choices=[('money', 'Dinheiro'), ('credit-card', 'Cartão de Crédito'), ('debit-card', 'Cartão de Débito')], default='money', max_length=20),
+            field=models.CharField(
+                choices=[
+                    ('money', 'Dinheiro'),
+                    ('credit-card', 'Cartão de Crédito'),
+                    ('debit-card', 'Cartão de Débito'),
+                ],
+                default='money',
+                max_length=20,
+            ),
         ),
     ]

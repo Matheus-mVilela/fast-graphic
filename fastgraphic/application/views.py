@@ -1,8 +1,8 @@
-from django.contrib.auth.models import User
 from django import shortcuts, views
 from django.contrib import messages
+from django.contrib.auth.models import User
 
-from . import services, forms, models, choices
+from . import choices, forms, models, services
 
 
 class DashboardView(views.View):
@@ -306,4 +306,3 @@ class SaleDeleteView(views.View):
             request, f'A venda foi cancelada com sucesso!!!',
         )
         return shortcuts.redirect('application:sale-delete', employee_id)
-

@@ -13,7 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sale',
             name='status',
-            field=models.CharField(choices=[('open', 'Open'), ('finished', 'Finished')], default='open', max_length=20),
+            field=models.CharField(
+                choices=[('open', 'Open'), ('finished', 'Finished')],
+                default='open',
+                max_length=20,
+            ),
         ),
         migrations.AlterField(
             model_name='saleproduct',
