@@ -134,3 +134,9 @@ class Sale(core.models.BaseModel):
     def payment_method_display(self):
         _dict = dict(choices.PAYMENT_METHOD_CHOICES)
         return _dict[self.payment_method]
+
+    @classmethod
+    def get_by_year(cls, year):
+        return Sale.objects.filter(created_at__year=year).order_by(
+            '-created_at'
+        )
