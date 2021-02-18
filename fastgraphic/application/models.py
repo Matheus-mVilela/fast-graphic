@@ -1,11 +1,13 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.core import exceptions
-from django.db.models import Sum, F, FloatField, Aggregate
-from . import choices
 from datetime import datetime
 
+from django.contrib.auth.models import User
+from django.core import exceptions
+from django.db import models
+from django.db.models import Aggregate, F, FloatField, Sum
+
 import core.models
+
+from . import choices
 
 
 class Employee(core.models.BaseModel):

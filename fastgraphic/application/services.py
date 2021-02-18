@@ -1,6 +1,6 @@
 import datetime
 
-from . import models, choices
+from . import choices, models
 
 
 def _get_today_start_and_end():
