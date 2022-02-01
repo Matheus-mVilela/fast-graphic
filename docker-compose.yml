@@ -1,14 +1,14 @@
-version: '3.7'
+version: '3'
 
 services:
     backend:
-        build: fastgraphic
-        restart: ${RESTART:-no}
+        build:
+            dockerfile: ./fastgraphic/Dockerfile
+            context: .
+
+        image: fastgraphic_backend
+        container_name: fastgraphic_backend
         volumes:
-            - ./:/app
-        working_dir: /app/fastgraphic
+            - ./fastgraphic:/app
         ports:
-            - "${BACKEND_HOST_PORT}8000"
-        stdin_open: true
-        tty: true
-        command: ${RUNSERVER:-/bin/bash}
+            - "8000:8000"
